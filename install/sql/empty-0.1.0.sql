@@ -1,5 +1,3 @@
-<?php
-
 /**
  * -------------------------------------------------------------------------
  * feedback plugin for GLPI
@@ -29,47 +27,16 @@
  * --------------------------------------------------------------------------
  */
 
-/**
- * Plugin install process
- *
- * @return boolean
- */
-function plugin_feedback_install()
-{
-    /**
-    * @var \DBmysql $DB
-    */
-    global $DB;
+ SET FOREIGN_KEY_CHECKS=0;
 
-    $res = true;
+DROP TABLE IF EXISTS `glpi_plugin_feedback_messages`;
+CREATE TABLE IF NOT EXISTS `glpi_plugin_feedback_messages` (
+#  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+#  `quick_transfer` TINYINT(1) NOT NULL DEFAULT '0',
+#  `autotransfer` TINYINT(1) NOT NULL DEFAULT '0',
+#  `transfer_entity` INT UNSIGNED NOT NULL DEFAULT '0',
+#  `deny_rootentity` TINYINT(1) NOT NULL DEFAULT '0',
+#   PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-    $plugin_fields = new Plugin();
-    $plugin_fields->getFromDBbyDir('feedback');
-    $version = $plugin_fields->fields['version'];
-    $migration = new Migration($version);
-
-    /* Version 0.1.0
-    *
-    *
-    */
-    $migration->displayMessage(sprintf(__("Installing Feedback %s"), $version));
-    $res = $DB->runFile(Plugin::getPhpDir("feedback") . "/install/sql/empty-0.1.0.sql");
-
-
-    return $res;
-}
-
-/**
- * Plugin uninstall process
- *
- * @return boolean
- */
-function plugin_feedback_uninstall()
-{
-    if ($DB->tableExists("glpi_plugin_feedback_messages")) {
-        $query = "DROP TABLE `glpi_plugin_feedback_messages`";
-        $DB->query($query) or die("error deleting glpi_plugin_feedback_messages");
-    }
-
-    return true;
-}
+SET FOREIGN_KEY_CHECKS=1;

@@ -61,9 +61,9 @@ function plugin_version_feedback()
     return [
         'name'           => 'feedback',
         'version'        => PLUGIN_FEEDBACK_VERSION,
-        'author'         => '<a href="http://www.teclib.com">Teclib\'</a>',
-        'license'        => '',
-        'homepage'       => '',
+        'author'         => 'André Proto; Felipe Augusto Santos',
+        'license'        => 'GPLv3+',
+        'homepage'       => 'https://github.com/RatadoColab/glpi-plugin-feedback',
         'requirements'   => [
             'glpi' => [
                 'min' => PLUGIN_FEEDBACK_MIN_GLPI_VERSION,
